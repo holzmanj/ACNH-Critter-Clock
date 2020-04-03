@@ -1,6 +1,6 @@
 let FISH;
 
-document.onload = function () {
+window.onload = function () {
     // load fish from JSON
     let request = new XMLHttpRequest();
     request.onload = function () {
