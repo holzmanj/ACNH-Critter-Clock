@@ -1,7 +1,8 @@
 @font-face {
     font-family: "Humming";
-    src: url("/ACNH-Critter-Clock/humming.otf"),
-         url("/humming.otf");
+    src: url("/ACNH-Critter-Clock/humming.otf"),    /* This one doesn't resolve for some reason, but I'm keeping it just in case. */
+         url("/ACNH-Critter-Clock//humming.otf"),   /* This one actually works, but don't ask me why. */
+         url("/humming.otf");                       /* For when I'm hosting locally (not on github). */
 }
 
 #background {
