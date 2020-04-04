@@ -13,16 +13,16 @@ function drawFishTable() {
     let month = date.getMonth();
     let hour = date.getHours();
 
-    let availableFish = FISH.filter(f => month in f.months && hour in f.time);
+    let availableFish = FISH.filter(f => f.months.includes(month) && f.time.includes(month));
     availableFish = availableFish.sort((a, b) => b.price - a.price);
     
     availableFish.forEach(fish => {
-        let size = parseInt(fish.shadow_size);
+        let size = fish.shadow_size == "Narrow" ? "narrow" : parseInt(fish.shadow_size);
         let column = document.getElementById(`fish-size-${size}-column-body`);
 
         // style fish tile depending on where to find fish
         let fishTile = document.createElement("div");
-        if (fish.location == "Sea" || fish.location == "Pier") {
+        if (fish.location.startsWith("Sea") || fish.location.startsWith("Pier")) {
             fishTile.className = "fish-tile saltwater-fish-tile";
         } else {
             fishTile.className = "fish-tile freshwater-fish-tile";
@@ -40,7 +40,7 @@ function drawFishTable() {
 
         let fishPrice = document.createElement("div");
         fishPrice.className = "fish-price";
-        fishPrice.innerHTML = fish.price;
+        fishPrice.innerHTML = fish.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         fishTile.appendChild(fishPrice);
 
         let fishLocation = document.createElement("div");

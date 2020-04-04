@@ -6,18 +6,28 @@
 
 body {
     font-family: "Nunito";
+    display: flex;
+    justify-content: center;
 }
 
-div {
-    border: 1px solid black;
-}
+
 
 #fish-table-container {
     display: flex;
     justify-content: space-evenly;
 
     width: 80vw;
+    min-width: 900px;
     max-width: 1000px;
+
+    background-color: #ebe1c5;
+    padding: 0 20px;
+}
+
+@media screen and (max-width: 800px) {
+    #fish-table-container {
+        width: 100%;
+    }
 }
 
 .fish-column {
@@ -26,24 +36,67 @@ div {
     max-width: 140px;
 }
 
+.column-header {
+    color: #845a2a;
+    /* background-color: #e0d4af; */
+    /* border-radius: 15px; */
+    margin: 5px;
+
+    border-bottom: 2px dashed #95896f;
+}
+
 .fish-tile {
-    color: #4e3d36;
+    margin: 5px;
+    border-radius: 5px;
 }
 
 .saltwater-fish-tile {
     background-color: #8d9bf3;
+    border: 4px solid #bbc5ff;
 }
 
 .freshwater-fish-tile {
     background-color: #81d5bd;
+    border: 4px solid #c1ece0;
 }
 
 .fish-image {
     max-width: 64px;
     width: auto;
     display: inline-block;
-    border: 4px solid #4e3d36;
-    border-radius: 25px;
-    background-color: #f7f3e8;
     margin: 5px;
+    filter: drop-shadow(2px 2px 1px #48484899);
+}
+
+.fish-name,
+.fish-price,
+.fish-location {
+    color: #f39801;
+    background-color: #f5f6e0;
+    margin: 3px;
+    border-radius: 2px;
+    padding: 2px;
+}
+
+.saltwater-fish-tile .fish-name,
+.saltwater-fish-tile .fish-price,
+.saltwater-fish-tile .fish-location {
+    color: #fffbe2;
+    background-color: #6976ce;
+}
+
+
+.freshwater-fish-tile .fish-name,
+.freshwater-fish-tile .fish-price,
+.freshwater-fish-tile .fish-location {
+    color: #fffbe2;
+    background-color: #65ac98;
+}
+
+.fish-price::before {
+    content: url("img/bells.png");
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin-bottom: -20px;
 }
