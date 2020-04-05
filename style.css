@@ -12,60 +12,24 @@
     width: 100vw;
     height: 100vh;
     z-index: -99;
-
-    transition: background 1s;
 }
 
-.sunrise {
+#background.sunrise {
     background: rgb(203,95,69);
     background: linear-gradient(180deg, rgba(203,95,69,1) 0%, rgba(243,107,69,1) 50%, rgba(254,198,85,1) 100%);
 }
 
-.day {
+#background.day {
     background: rgb(121,176,255);
     background: linear-gradient(180deg, rgba(121,176,255,1) 0%, rgba(193,244,239,1) 100%); 
 }
 
-.night {
+#background.night {
     background: rgb(31,33,82);
-    background: linear-gradient(180deg, rgba(31,33,82,1) 0%, rgba(51,60,115,1) 100%);
-}
-
-#parallax-wrapper {
-    perspective: 1px;
-    overflow-x: hidden;
-    overflow-y: auto;
-
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100vh;
-    width: 100vw;
-}
-
-.parallax-layer {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-}
-
-#parallax-layer-foreground {
-    transform: translateZ(0);
-}
-
-#parallax-layer-bg-1 {
-    transform: translateZ(-1px)  scale(2);
-    background-image: url("img/parallax/day_front.png");
-    opacity: 0.7;
-
-}
-
-#parallax-layer-bg-2 {
-    transform: translateZ(-2px)  scale(3);
-    background-image: url("img/parallax/day_back.png");
-    opacity: 0.5;
+    background: url("img/stars_large.png") center repeat,
+                url("img/stars_medium.png") center repeat,
+                url("img/stars_small.png") center repeat,
+                linear-gradient(180deg, rgba(31,33,82,1) 0%, rgba(51,60,115,1) 100%);
 }
 
 #clock-wrapper {
@@ -89,7 +53,6 @@
     display: flex;
     justify-content: center;
 }
-
 
 #fish-table-container {
     display: flex;
@@ -126,20 +89,21 @@ hr.vertical {
     margin: 5px;
     border-radius: 5px;
     filter: drop-shadow(2px 2px 2px #b3a47c96);
+    border: 4px solid #e8eef7;
 }
 
 .saltwater-fish-tile {
     background-color: #7c75dc;
-    border: 4px solid #aaa4fa;
+    /* border: 4px solid #aaa4fa; */
 
-    background: repeating-linear-gradient(45deg, #7c75dc, #7c75dc 10px, #837ae1 10px, #837ae1 20px);
+    background: repeating-linear-gradient(45deg, #7c75dc, #7c75dc 10px, #867de0 10px, #867de0 20px);
 }
 
 .freshwater-fish-tile {
     background-color: #8d9bf3;
-    border: 4px solid #bbc5ff;
+    /* border: 4px solid #bbc5ff; */
 
-    background: repeating-linear-gradient(45deg, #8d9bf3, #8d9bf3 10px, #96a4f6 10px, #96a4f6 20px);
+    background: repeating-linear-gradient(-45deg, #8d9bf3, #8d9bf3 10px, #96a4f6 10px, #96a4f6 20px);
 }
 
 .fish-image {
@@ -153,25 +117,34 @@ hr.vertical {
 .fish-name,
 .fish-price,
 .fish-location {
-    margin: 3px;
-    border-radius: 2px;
     padding: 2px;
+    color: #fffbe2;
 }
 
-.saltwater-fish-tile .fish-name,
-.saltwater-fish-tile .fish-price,
+.saltwater-fish-tile .fish-name {
+    background-color: #5e62c877;
+}
+
+.saltwater-fish-tile .fish-price {
+    background-color: #5056ba77;
+}
+
 .saltwater-fish-tile .fish-location {
-    color: #fffbe2;
-    background-color: #5e62c8;
+    background-color: #424aac77;
 }
 
+.freshwater-fish-tile .fish-name {
+    background-color: #7181d677;
+}
 
-.freshwater-fish-tile .fish-name,
-.freshwater-fish-tile .fish-price,
+.freshwater-fish-tile .fish-price {
+    background-color: #6374c877;
+}
+
 .freshwater-fish-tile .fish-location {
-    color: #fffbe2;
-    background-color: #6976ce;
+    background-color: #5668ba77;
 }
+
 
 .fish-price::before {
     content: url("img/bells.png");
@@ -180,7 +153,6 @@ hr.vertical {
     display: block;
     margin-bottom: -20px;
 }
-
 
 @media screen and (max-width: 800px) {
     #clock-wrapper {

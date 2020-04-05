@@ -5,27 +5,32 @@ let MONTH, HOUR, MINUTE;
 
 function updateBackground() {
     let background = document.getElementById("background");
+    // let parallaxWrapper = document.getElementById("parallax-wrapper");
     let hour = (new Date()).getHours();
     // sunrise between 5AM and 7AM
     if (hour >= 5 && hour < 7) {
         background.className = "sunrise";
+        // parallaxWrapper.className = "sunrise";
     } else 
     // day between 7AM and 5PM
     if (hour >= 7 && hour < 17) {
         background.className = "day";
+        // parallaxWrapper.className = "day";
     } else
     // sunset between 5PM and 7PM
     if (hour >= 17 && hour < 19) {
         background.className = "sunrise";
+        // parallaxWrapper.className = "sunrise";
     } else {
         background.className = "night";
+        // parallaxWrapper.className = "night";
     }
 }
 
 function updateClock() {
-    function dateOrdinal() {
-        if (d > 3 && d < 21) return 'th';
-        switch (d % 10) {
+    function dateOrdinal(day) {
+        if (day > 3 && day < 21) return 'th';
+        switch (day % 10) {
           case 1:  return "st";
           case 2:  return "nd";
           case 3:  return "rd";
@@ -41,7 +46,7 @@ function updateClock() {
     let dateWrapper = document.getElementById("date-wrapper");
     let timeWrapper = document.getElementById("time-wrapper");
 
-    dateWrapper.innerHTML = `It is ${MONTH_NAMES[MONTH]} ${d.getDate()}${dateOrdinal(d.getDate())}`;
+    dateWrapper.innerHTML = `It's ${MONTH_NAMES[MONTH]} ${d.getDate()}${dateOrdinal(d.getDate())}`;
     let hours = HOUR % 12;
     hours = hours ? hours : 12;    // turns hour 0 into 12
     let minutes = MINUTE;
@@ -79,21 +84,25 @@ function updateFishTable() {
             fishTile.className = "fish-tile freshwater-fish-tile";
         }
 
+        // IMAGE
         let fishImg = document.createElement("img");
         fishImg.className = "fish-image";
         fishImg.src = fish.image;
         fishTile.appendChild(fishImg);
 
+        // NAME
         let fishName = document.createElement("div");
         fishName.className = "fish-name";
         fishName.innerHTML = fish.name;
         fishTile.appendChild(fishName);
 
+        // PRICE
         let fishPrice = document.createElement("div");
         fishPrice.className = "fish-price";
         fishPrice.innerHTML = fish.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         fishTile.appendChild(fishPrice);
 
+        // LOCATION
         let fishLocation = document.createElement("div");
         fishLocation.className = "fish-location";
         fishLocation.innerHTML = fish.location;
