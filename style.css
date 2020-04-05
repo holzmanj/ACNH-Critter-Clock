@@ -87,19 +87,94 @@ hr.vertical {
 
 .fish-tile {
     margin: 5px;
+    margin-top: 10px;
     border-radius: 5px;
-    filter: drop-shadow(2px 2px 2px #b3a47c96);
-    border: 4px solid #e8eef7;
+    filter: drop-shadow(0px 2px 2px #b3a47cc4);
+    border: 5px solid #e8f0f7;
+
+    transition: filter 0.15s ease-in, transform 0.15s ease-in;
+
+    cursor: pointer;
+}
+
+.fish-tile:hover {
+    filter: drop-shadow(0px 6px 5px #b3a47cc4);
+    transform: translate3d(0, -5px, 0);
+}
+
+.saltwater-fish-tile::before,
+.freshwater-fish-tile::before {
+    content: "";
+    z-index: -2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #7c75dc;
+    opacity: 0.3;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.saltwater-fish-tile:hover::before,
+.freshwater-fish-tile:hover::before {
+    opacity: 0;
+}
+
+.saltwater-fish-tile::before {
+    background-color: #7c75dc;
+}
+
+.freshwater-fish-tile::before {
+    background-color: #8d9bf3;
 }
 
 .saltwater-fish-tile {
     background-color: #7c75dc;
-    background: repeating-linear-gradient(45deg, #7c75dc, #7c75dc 10px, #867de0 10px, #867de0 20px);
+    background: repeating-linear-gradient(
+        45deg, 
+        #7c75dc 25%, 
+        #867de0 25%, 
+        #867de0 50%, 
+        #7c75dc 50%, 
+        #7c75dc 75%,
+        #867de0 75%
+    );
+    background-size: 30px 30px;
 }
 
 .freshwater-fish-tile {
     background-color: #8d9bf3;
-    background: repeating-linear-gradient(-45deg, #8d9bf3, #8d9bf3 10px, #96a4f6 10px, #96a4f6 20px);
+    background: repeating-linear-gradient(
+        -45deg, 
+        #8d9bf3 25%, 
+        #96a4f6 25%, 
+        #96a4f6 50%, 
+        #8d9bf3 50%, 
+        #8d9bf3 75%,
+        #96a4f6 75%
+    );
+    background-size: 30px 30px;
+}
+
+@keyframes ne-scroll {
+    100%   { background-position: 30px 0;}
+}
+
+@keyframes se-scroll {
+    to   { background-position: 0 30px;}
+}
+
+.saltwater-fish-tile:hover {
+    /* border-width: 0px;
+    padding: 5px; */
+    animation: ne-scroll 0.5s linear infinite;
+}
+
+.freshwater-fish-tile:hover {
+    /* border-width: 0px;
+    padding: 5px; */
+    animation: se-scroll 0.5s linear infinite;
 }
 
 .fish-image {
