@@ -100,6 +100,60 @@ hr.vertical {
 .fish-tile:hover {
     filter: drop-shadow(0px 6px 5px #b3a47cc4);
     transform: translate3d(0, -5px, 0);
+    z-index: 50;
+}
+
+@keyframes mark-caught {
+    0% {
+        content: " ";
+        top: 0;
+        left: 0;
+        height: 0;
+        width: 0;
+        animation-timing-function: ease-in;
+    }
+    50% {
+        content: " ";
+        color: #89c68d;
+        top: -15px;
+        left: -15px;
+        height: 30px;
+        width: 30px;
+        animation-timing-function: ease-out;
+    }
+    100% {
+        content: "\2714";
+        color: #e8f0f7;
+        top: -12px;
+        left: -12px;
+        height: 25px;
+        width: 25px;
+    }
+}
+
+.fish-tile.caught::after {
+    content: "\2714";
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    height: 25px;
+    width: 25px;
+    color: #e8f0f7;
+    background-color: #89c68d;
+    border-bottom: 2px solid #6da871;
+    border-radius: 30px;
+    font-size: 17px;
+    filter: drop-shadow(0 0 0 #0005);
+    transition: filter 0.15s, transform 0.15s;
+}
+
+.fish-tile.caught:hover::after {
+    transform: translate3d(0, -2px, 0);
+    filter: drop-shadow(0 2px 1px #0005);
+}
+
+.fish-tile.caught.caught-animate::after {
+    animation: mark-caught 0.5s;
 }
 
 .saltwater-fish-tile::before,
@@ -166,14 +220,10 @@ hr.vertical {
 }
 
 .saltwater-fish-tile:hover {
-    /* border-width: 0px;
-    padding: 5px; */
     animation: ne-scroll 0.5s linear infinite;
 }
 
 .freshwater-fish-tile:hover {
-    /* border-width: 0px;
-    padding: 5px; */
     animation: se-scroll 0.5s linear infinite;
 }
 

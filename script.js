@@ -3,6 +3,65 @@ const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "Ju
 let FISH;
 let MONTH, HOUR, MINUTE;
 
+HTMLElement.prototype.addClass = function (className) {
+    let classes = this.className.split(" ");
+    if (!classes.includes(className)) {
+        classes.push(className);
+        this.className = classes.join(" ");
+    }
+}
+
+HTMLElement.prototype.removeClass = function (className) {
+    let classes = this.className.split(" ");
+    if (classes.includes(className)) {
+        let i = classes.indexOf(className);
+        classes.splice(i, 1);
+        this.className = classes.join(" ");
+    }
+}
+
+function setCookie(name, value) {
+    document.cookie = name + "=" + value + ";expires=Tue, 19 Jan 2038 09:14:07 GMT";
+}
+
+function getCookie(name) {
+    var name = name + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+}
+
+function toggleCaught(fishName, elem) {
+    caughtFish = getCookie("caughtFish").split("|");
+    
+    if (caughtFish.includes(fishName)) {
+        let i = caughtFish.indexOf(fishName);
+        caughtFish.splice(i, 1);
+        elem.removeClass("caught");
+        elem.removeClass("caught-animate");
+    } else {
+        caughtFish.push(fishName);
+        elem.addClass("caught-animate");
+        elem.addClass("caught");
+    }
+
+    setCookie("caughtFish", caughtFish.join("|"));
+}
+
+function isCaught(fishName) {
+    caughtFish = getCookie("caughtFish").split("|");
+    return caughtFish.includes(fishName);
+}
+
 function updateBackground() {
     let background = document.getElementById("background");
     let hour = (new Date()).getHours();
@@ -73,11 +132,17 @@ function updateFishTable() {
 
         // style fish tile depending on where to find fish
         let fishTile = document.createElement("div");
+        fishTile.addClass("fish-tile");
         if (fish.location.startsWith("Sea") || fish.location.startsWith("Pier")) {
-            fishTile.className = "fish-tile saltwater-fish-tile";
+            fishTile.addClass("saltwater-fish-tile")
         } else {
-            fishTile.className = "fish-tile freshwater-fish-tile";
+            fishTile.addClass("freshwater-fish-tile")
         }
+        // draw tile with checkmark if they are marked as caught
+        if (isCaught(fish.name)) {
+            fishTile.addClass("caught");
+        }
+        fishTile.onclick = () => toggleCaught(fish.name, fishTile);
 
         // IMAGE
         let fishImg = document.createElement("img");
