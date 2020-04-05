@@ -5,25 +5,20 @@ let MONTH, HOUR, MINUTE;
 
 function updateBackground() {
     let background = document.getElementById("background");
-    // let parallaxWrapper = document.getElementById("parallax-wrapper");
     let hour = (new Date()).getHours();
     // sunrise between 5AM and 7AM
     if (hour >= 5 && hour < 7) {
         background.className = "sunrise";
-        // parallaxWrapper.className = "sunrise";
     } else 
     // day between 7AM and 5PM
     if (hour >= 7 && hour < 17) {
         background.className = "day";
-        // parallaxWrapper.className = "day";
     } else
     // sunset between 5PM and 7PM
     if (hour >= 17 && hour < 19) {
         background.className = "sunrise";
-        // parallaxWrapper.className = "sunrise";
     } else {
         background.className = "night";
-        // parallaxWrapper.className = "night";
     }
 }
 
@@ -69,7 +64,7 @@ function updateFishTable() {
     let month = date.getMonth();
     let hour = date.getHours();
 
-    let availableFish = FISH.filter(f => f.months.includes(month) && f.time.includes(month));
+    let availableFish = FISH.filter(f => f.months.includes(month) && f.time.includes(hour));
     availableFish = availableFish.sort((a, b) => b.price - a.price);
 
     availableFish.forEach(fish => {
