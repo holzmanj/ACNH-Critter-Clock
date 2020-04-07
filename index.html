@@ -3,7 +3,7 @@
 <head>
     <script type="text/javascript" src="script.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css" />
-    <link rel="stylesheet" type="text/css" href="background.css" />
+    <link rel="stylesheet" type="text/css" href="filters.css" />
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap" rel="stylesheet">
 
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
@@ -17,6 +17,29 @@
     </div>
     <div id="page-content-wrapper">
         <div id="fish-table-container">
+            <div id="fish-filters">
+                <h1>Filter Fish</h1>
+                <label class="checkbox-container">
+                    Saltwater
+                    <input type="checkbox" id="show-saltwater" checked="checked" onchange="updateFishTable()">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="checkbox-container">
+                    Freshwater
+                    <input type="checkbox" id="show-freshwater" checked="checked" onchange="updateFishTable()">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="checkbox-container">
+                    Caught
+                    <input type="checkbox" id="show-caught" checked="checked" onchange="updateFishTable()">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="checkbox-container">
+                    Uncaught
+                    <input type="checkbox" id="show-uncaught" checked="checked" onchange="updateFishTable()">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
             <div id="fish-size-1-column" class="fish-column">
                 <div id="fish-size-1-column-header" class="column-header">
                     <img src="img/headers/tiny.png" /><br>

@@ -108,6 +108,16 @@ function updateClock() {
     timeWrapper.innerHTML = `${hours}:${minutes} ${ampm}`;
 }
 
+function getFishFilters() {
+    let filters = {
+        saltwater: document.getElementById("show-saltwater").checked,
+        freshwater: document.getElementById("show-freshwater").checked,
+        caught: document.getElementById("show-caught").checked,
+        uncaught: document.getElementById("show-uncaught").checked
+    };
+    return filters;
+}
+
 function updateFishTable() {
     wrapper = document.getElementById("fish-table-wrapper");
 
@@ -122,6 +132,15 @@ function updateFishTable() {
     let hour = date.getHours();
 
     let availableFish = FISH.filter(f => f.months.includes(month) && f.time.includes(hour));
+
+    let filters = getFishFilters();
+    if (!filters.caught) {
+        availableFish = availableFish.filter(f => !isCaught(f.name));
+    }
+    if (!filters.uncaught) {
+        availableFish = availableFish.filter(f => isCaught(f.name));
+    }
+
     availableFish = availableFish.sort((a, b) => b.price - a.price);
 
     availableFish.forEach(fish => {
@@ -132,9 +151,17 @@ function updateFishTable() {
         let fishTile = document.createElement("div");
         fishTile.addClass("fish-tile");
         if (fish.location.startsWith("Sea") || fish.location.startsWith("Pier")) {
-            fishTile.addClass("saltwater-fish-tile")
+            if (!filters.saltwater) {
+                return;
+            } else {
+                fishTile.addClass("saltwater-fish-tile")
+            }
         } else {
-            fishTile.addClass("freshwater-fish-tile")
+            if (!filters.freshwater) {
+                return;
+            } else {
+                fishTile.addClass("freshwater-fish-tile")
+            }
         }
         // draw tile with checkmark if they are marked as caught
         if (isCaught(fish.name)) {

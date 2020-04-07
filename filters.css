@@ -1,0 +1,103 @@
+#fish-filters {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #f5f6e0;
+    border-radius: 10px;
+    margin: 15px;
+    filter: drop-shadow(0 0 2px #0003);
+    z-index: 99;
+
+    height: 22px;
+    width: 95px;
+    overflow: hidden;
+    padding: 0px;
+
+    transition: height 0.5s,
+                width 0.5s,
+                padding 0.5s;
+}
+
+#fish-filters:hover {
+    padding: 10px;
+    height: 135px;
+    width: 105px;
+}
+
+#fish-filters h1 {
+    font-size: 16px;
+    color: #8e7a69;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    margin-bottom: 7px;
+    border-bottom: 1px dashed #d0c29b;
+
+    transition: font-size 0.5s;
+}
+
+#fish-filters:hover h1 {
+    font-size: 18px;
+}
+
+.checkbox-container {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    padding-left: 20px;
+    margin: 4px 0;
+
+    color: #8d7b68;
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    border-radius: 3px;
+    background-color: #e1dbcf;
+    margin-top: 3px;
+}
+
+.checkbox-container:hover .checkmark {
+    background-color: #bcb6a4;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+    background-color: #f69703;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.checkbox-container .checkmark:after {
+    left: 5px;
+    top: 1;
+    width: 3px;
+    height: 8px;
+    border: solid #f7f3e8;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
