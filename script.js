@@ -46,10 +46,8 @@ function toggleCaught(fishName, elem) {
     if (caughtFish.includes(fishName)) {
         let i = caughtFish.indexOf(fishName);
         caughtFish.splice(i, 1);
-        elem.removeClass("caught");
     } else {
         caughtFish.push(fishName);
-        elem.addClass("caught");
     }
 
     setCookie("caughtFish", caughtFish.join("|"));
@@ -118,6 +116,23 @@ function getFishFilters() {
     return filters;
 }
 
+function generateCaughtCheckbox(fishName, tile) {
+    let container = document.createElement("label");
+    container.className = "checkbox-container";
+
+    let input = document.createElement("input");
+    input.type = "checkbox";
+    input.checked = isCaught(fishName);
+    input.onchange = () => toggleCaught(fishName, tile);
+
+    let checkmark = document.createElement("span");
+    checkmark.className = "checkmark";
+
+    container.appendChild(input);
+    container.appendChild(checkmark);
+    return container
+}
+
 function updateFishTable() {
     wrapper = document.getElementById("fish-table-wrapper");
 
@@ -163,10 +178,6 @@ function updateFishTable() {
                 fishTile.addClass("freshwater-fish-tile")
             }
         }
-        // draw tile with checkmark if they are marked as caught
-        if (isCaught(fish.name)) {
-            fishTile.addClass("caught");
-        }
 
         // IMAGE
         let fishImg = document.createElement("img");
@@ -193,10 +204,7 @@ function updateFishTable() {
         fishTile.appendChild(fishLocation);
 
         // CAUGHT CHECKBOX
-        let checkbox = document.createElement("div");
-        checkbox.className = "fish-checkbox";
-        checkbox.onclick = () => toggleCaught(fish.name, fishTile);
-        fishTile.appendChild(checkbox);
+        fishTile.appendChild(generateCaughtCheckbox(fish.name, fishTile));
 
         column.appendChild(fishTile);
     });

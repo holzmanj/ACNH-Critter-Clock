@@ -103,28 +103,15 @@ hr.vertical {
     z-index: 50;
 }
 
-.fish-checkbox::before {
+.fish-tile::after {
+    content: " ";
     position: absolute;
-    top: -4px;
-    left: -1px;
-    height: 16px;
-    width: 13px;
-    padding-bottom: 5px;
-    padding-right: 5px;
-    content: "\2610";
-    color: #e4dec8;
+    top: -5px;
+    left: -5px;
+    height: 25px;
+    width: 25px;
+    border-radius: 4px;
     background-color: #faf5e1;
-    border-bottom-right-radius: 5px;
-}
-
-.caught .fish-checkbox::before {
-    content: "\2611";
-    color: #bcb6a4;
-}
-
-.fish-checkbox:hover::before,
-.caught .fish-checkbox:hover::before {
-    color: #f69703;
 }
 
 .saltwater-fish-tile::before,

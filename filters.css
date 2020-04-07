@@ -55,6 +55,17 @@
     color: #8d7b68;
 }
 
+.fish-tile .checkbox-container {
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    top: 0;
+    left: 0;
+    margin-top: -3px;
+
+    z-index: 50;
+}
+
 .checkbox-container input {
     position: absolute;
     opacity: 0;
@@ -94,7 +105,7 @@
 
 .checkbox-container .checkmark:after {
     left: 5px;
-    top: 1;
+    top: 1px;
     width: 3px;
     height: 8px;
     border: solid #f7f3e8;
