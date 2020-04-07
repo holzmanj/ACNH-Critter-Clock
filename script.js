@@ -128,8 +128,13 @@ function generateCaughtCheckbox(fishName, tile) {
     let checkmark = document.createElement("span");
     checkmark.className = "checkmark";
 
+    let hoverText = document.createElement("div");
+    hoverText.className = "hover-text";
+    hoverText.innerHTML = "Mark as caught"
+
     container.appendChild(input);
     container.appendChild(checkmark);
+    container.appendChild(hoverText);
     return container
 }
 

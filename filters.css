@@ -111,4 +111,54 @@
     border: solid #f7f3e8;
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
-  }
+}
+
+.checkbox-container .hover-text {
+    position: absolute;
+    display: none;
+    
+    top: -27px;
+    left: -55px;
+    width: 120px;
+    padding: 1px 0;
+    
+    font-size: 14px;
+    border-radius: 25px;
+    
+    color: #f7f3e8;
+    background-color: #f69703;
+}
+
+.checkbox-container .hover-text::before {
+    position: absolute;
+    content: " ";
+    
+    top: 15px;
+    left: 57px;
+    width: 10px;
+    height: 10px;
+    
+    transform: rotate(45deg);
+    background: linear-gradient(-45deg, #f69703 0% ,  #f69703 50%,  #0000 50%, #0000 100%);
+}
+
+.checkbox-container:hover .hover-text {
+    display: block;
+    opacity: 1.0;
+    
+    animation: fade-in 0.5s;
+}
+
+@keyframes fade-in {
+    from {
+        display: none;
+        opacity: 0;
+    }
+    1% {
+        display: block;
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
