@@ -47,10 +47,8 @@ function toggleCaught(fishName, elem) {
         let i = caughtFish.indexOf(fishName);
         caughtFish.splice(i, 1);
         elem.removeClass("caught");
-        elem.removeClass("caught-animate");
     } else {
         caughtFish.push(fishName);
-        elem.addClass("caught-animate");
         elem.addClass("caught");
     }
 
@@ -142,7 +140,6 @@ function updateFishTable() {
         if (isCaught(fish.name)) {
             fishTile.addClass("caught");
         }
-        fishTile.onclick = () => toggleCaught(fish.name, fishTile);
 
         // IMAGE
         let fishImg = document.createElement("img");
@@ -167,6 +164,12 @@ function updateFishTable() {
         fishLocation.className = "fish-location";
         fishLocation.innerHTML = fish.location;
         fishTile.appendChild(fishLocation);
+
+        // CAUGHT CHECKBOX
+        let checkbox = document.createElement("div");
+        checkbox.className = "fish-checkbox";
+        checkbox.onclick = () => toggleCaught(fish.name, fishTile);
+        fishTile.appendChild(checkbox);
 
         column.appendChild(fishTile);
     });
