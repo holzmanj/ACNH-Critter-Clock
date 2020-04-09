@@ -51,7 +51,7 @@ function toggleCaught(critterName) {
         caughtCritters.push(critterName);
     }
 
-    setCookie("caughtFish", caughtCritters.join("|"));
+    setCookie("caughtCritters", caughtCritters.join("|"));
 }
 
 function isCaught(critterName) {
