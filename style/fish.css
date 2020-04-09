@@ -9,7 +9,9 @@
     background-color: #ebe1c5;
     padding: 10px 20px;
     border-radius: 7px;
+}
 
+.show-bugs #fish-table-container {
     display: none;
 }
 
@@ -164,7 +166,7 @@
 
 
 .fish-price::before {
-    content: url("img/bells.png");
+    content: url("../img/bells.png");
     width: 20px;
     height: 20px;
     display: block;

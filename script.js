@@ -1,6 +1,7 @@
 const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 let FISH;
+let BUGS;
 let MONTH, HOUR, MINUTE;
 
 HTMLElement.prototype.addClass = function (className) {
@@ -40,22 +41,22 @@ function getCookie(name) {
     return "";
 }
 
-function toggleCaught(fishName, elem) {
-    caughtFish = getCookie("caughtFish").split("|");
+function toggleCaught(critterName) {
+    let caughtCritters = getCookie("caughtCritters").split("|");
     
-    if (caughtFish.includes(fishName)) {
-        let i = caughtFish.indexOf(fishName);
-        caughtFish.splice(i, 1);
+    if (caughtCritters.includes(critterName)) {
+        let i = caughtCritters.indexOf(critterName);
+        caughtCritters.splice(i, 1);
     } else {
-        caughtFish.push(fishName);
+        caughtCritters.push(critterName);
     }
 
-    setCookie("caughtFish", caughtFish.join("|"));
+    setCookie("caughtFish", caughtCritters.join("|"));
 }
 
-function isCaught(fishName) {
-    caughtFish = getCookie("caughtFish").split("|");
-    return caughtFish.includes(fishName);
+function isCaught(critterName) {
+    let caughtCritters = getCookie("caughtCritters").split("|");
+    return caughtCritters.includes(critterName);
 }
 
 function updateBackground() {
@@ -106,6 +107,22 @@ function updateClock() {
     timeWrapper.innerHTML = `${hours}:${minutes} ${ampm}`;
 }
 
+function toggleCritters() {
+    let pageWrapper = document.getElementById("page-content-wrapper");
+    let toggleWrapper = document.getElementById("toggle-critters-container");
+    if (pageWrapper.className.includes("show-fish")) {
+        pageWrapper.removeClass("show-fish");
+        pageWrapper.addClass("show-bugs");
+        toggleWrapper.removeClass("show-fish");
+        toggleWrapper.addClass("show-bugs");
+    } else {
+        pageWrapper.removeClass("show-bugs");
+        pageWrapper.addClass("show-fish");
+        toggleWrapper.removeClass("show-bugs");
+        toggleWrapper.addClass("show-fish");
+    }
+}
+
 function getFishFilters() {
     let filters = {
         saltwater: document.getElementById("show-saltwater").checked,
@@ -116,14 +133,14 @@ function getFishFilters() {
     return filters;
 }
 
-function generateCaughtCheckbox(fishName, tile) {
+function generateCaughtCheckbox(critterName) {
     let container = document.createElement("label");
     container.className = "checkbox-container";
 
     let input = document.createElement("input");
     input.type = "checkbox";
-    input.checked = isCaught(fishName);
-    input.onchange = () => toggleCaught(fishName, tile);
+    input.checked = isCaught(critterName);
+    input.onchange = () => toggleCaught(critterName);
 
     let checkmark = document.createElement("span");
     checkmark.className = "checkmark";
@@ -139,8 +156,6 @@ function generateCaughtCheckbox(fishName, tile) {
 }
 
 function updateFishTable() {
-    wrapper = document.getElementById("fish-table-wrapper");
-
     // clear out previous contents of columns
     for (let i = 1; i <= 6; i++) {
         let column = document.getElementById(`fish-size-${i}-column-body`);
@@ -209,9 +224,62 @@ function updateFishTable() {
         fishTile.appendChild(fishLocation);
 
         // CAUGHT CHECKBOX
-        fishTile.appendChild(generateCaughtCheckbox(fish.name, fishTile));
+        fishTile.appendChild(generateCaughtCheckbox(fish.name));
 
         column.appendChild(fishTile);
+    });
+}
+
+function updateBugsTable() {
+    wrapper = document.getElementById("bugs-table-container");
+
+    // clear out previous contents of columns
+    ["flying", "flowers", "trees", "ground", "other"].forEach(group => {
+        let column = document.getElementById(`bugs-${group}-column-body`);
+        column.innerHTML = "";
+    });
+
+    let date = new Date();
+    let month = date.getMonth();
+    let hour = date.getHours();
+
+    let availableBugs = BUGS.filter(b => b.months.includes(month) && b.time.includes(hour));
+    availableBugs = availableBugs.sort((a, b) => b.price - a.price);
+
+    availableBugs.forEach(bug => {
+        let column = document.getElementById(`bugs-${bug.group}-column-body`);
+
+        let bugTile = document.createElement("div");
+        bugTile.addClass("bug-tile");
+
+        // IMAGE
+        let bugImg = document.createElement("img");
+        bugImg.className = "bug-image";
+        bugImg.src = bug.image;
+        bugTile.appendChild(bugImg);
+
+        // NAME
+        let bugName = document.createElement("div");
+        bugName.className = "bug-name";
+        bugName.innerHTML = bug.name;
+        bugTile.appendChild(bugName);
+
+        // PRICE
+        let bugPrice = document.createElement("div");
+        bugPrice.className = "bug-price";
+        bugPrice.innerHTML = bug.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        bugTile.appendChild(bugPrice);
+
+        // LOCATION
+        let bugLocation = document.createElement("div");
+        bugLocation.className = "bug-location";
+        bugLocation.innerHTML = bug.location;
+        bugTile.appendChild(bugLocation);
+
+        // CAUGHT CHECKBOX
+        bugTile.appendChild(generateCaughtCheckbox(bug.name));
+
+        column.appendChild(bugTile);
     });
 }
 
@@ -220,6 +288,7 @@ function clockTick() {
     if (d.getHours() !== HOUR) {
         updateBackground();
         updateFishTable();
+        updateBugsTable();
     }
 
     // update clock last because it modifies the globals
@@ -230,14 +299,29 @@ function clockTick() {
     setTimeout(clockTick, 1000);
 }
 
-window.onload = function () {
-    // load fish from JSON
+function loadBugs() {
+    let request = new XMLHttpRequest();
+    request.onload = function () {
+        BUGS = JSON.parse(request.response);
+
+        clockTick();
+    };
+    request.open("GET", window.location.href + "bugs.json");
+    request.send();
+}
+
+function loadFish() {
     let request = new XMLHttpRequest();
     request.onload = function () {
         FISH = JSON.parse(request.response);
 
-        clockTick();
+        loadBugs();
     };
     request.open("GET", window.location.href + "fish.json");
     request.send();
+}
+
+window.onload = function () {
+    loadFish();
+
 }

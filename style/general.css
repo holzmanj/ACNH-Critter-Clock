@@ -47,13 +47,84 @@
     margin-top: -3vw;
 }
 
+#toggle-critters-container {
+    position: fixed;
+    top: 10;
+    right: 20;
+}
+
+.toggle-critter-icon-wrapper {
+    display: inline-block;
+    position: relative;
+    color: #bcb6a4;
+    font-family: "Nunito";
+    background-color: #f5f6e0;
+
+    width: 75px;
+    height: 75px;
+
+    margin: 0 -10px;
+
+    border: none;
+    border-radius: 40px;
+}
+
+#toggle-button-fish-icon,
+#toggle-button-bug-icon {
+    height: auto;
+    width: 40px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    fill: #bcb6a4;
+    z-index: 51;
+
+    transition: width 0.25s, height 0.25s;
+}
+
+#toggle-critters-container:hover #toggle-button-fish-icon,
+#toggle-critters-container:hover #toggle-button-bug-icon {
+    fill: #877b65;
+}
+ 
+#toggle-critters-container.show-fish #toggle-button-fish-icon,
+#toggle-critters-container.show-bugs #toggle-button-bug-icon {
+    fill: #f2ce6d;
+    width: 50px;
+}
+
+#toggle-critters-container::after {
+    position: absolute;
+    font-family: "Nunito";
+
+    color: #877b65;
+    background-color: #f2ce6d;
+    padding: 1px 10px;
+    top: 65px;
+    border-radius: 15px;
+
+    transition: left 0.25s;
+}
+
+#toggle-critters-container.show-fish::after {
+    content: "Fish";
+    left: 63px;
+}
+
+#toggle-critters-container.show-bugs::after {
+    content: "Insects";
+    left: -10px;
+}
+
 #page-content-wrapper {
     width: 100vw;
     font-family: "Nunito";
     display: flex;
     justify-content: center;
 }
-
 
 hr.vertical {
     height: 100%;
