@@ -127,8 +127,16 @@ function getFishFilters() {
     let filters = {
         saltwater: document.getElementById("show-saltwater").checked,
         freshwater: document.getElementById("show-freshwater").checked,
-        caught: document.getElementById("show-caught").checked,
-        uncaught: document.getElementById("show-uncaught").checked
+        caught: document.getElementById("show-caught-fish").checked,
+        uncaught: document.getElementById("show-uncaught-fish").checked
+    };
+    return filters;
+}
+
+function getBugFilters() {
+    let filters = {
+        caught: document.getElementById("show-caught-bugs").checked,
+        uncaught: document.getElementById("show-uncaught-bugs").checked
     };
     return filters;
 }
@@ -245,6 +253,14 @@ function updateBugsTable() {
 
     let availableBugs = BUGS.filter(b => b.months.includes(month) && b.time.includes(hour));
     availableBugs = availableBugs.sort((a, b) => b.price - a.price);
+
+    let filters = getBugFilters();
+    if (!filters.caught) {
+        availableBugs = availableBugs.filter(b => !isCaught(b.name));
+    }
+    if (!filters.uncaught) {
+        availableBugs = availableBugs.filter(b => isCaught(b.name));
+    }
 
     availableBugs.forEach(bug => {
         let column = document.getElementById(`bugs-${bug.group}-column-body`);

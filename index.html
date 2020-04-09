@@ -44,6 +44,19 @@
     </div>
     <div id="page-content-wrapper" class="show-fish">
         <div id="bugs-table-container">
+            <div id="bug-filters">
+                <h1>Filter Bugs</h1>
+                <label class="checkbox-container">
+                    Caught
+                    <input type="checkbox" id="show-caught-bugs" checked="checked" onchange="updateBugsTable()">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="checkbox-container">
+                    Uncaught
+                    <input type="checkbox" id="show-uncaught-bugs" checked="checked" onchange="updateBugsTable()">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
             <div id="bugs-flying-column" class="bugs-column">
                 <div class="column-header">
                     <img src="img/headers/tiny.png" /><br>
@@ -99,12 +112,12 @@
                 </label>
                 <label class="checkbox-container">
                     Caught
-                    <input type="checkbox" id="show-caught" checked="checked" onchange="updateFishTable()">
+                    <input type="checkbox" id="show-caught-fish" checked="checked" onchange="updateFishTable()">
                     <span class="checkmark"></span>
                 </label>
                 <label class="checkbox-container">
                     Uncaught
-                    <input type="checkbox" id="show-uncaught" checked="checked" onchange="updateFishTable()">
+                    <input type="checkbox" id="show-uncaught-fish" checked="checked" onchange="updateFishTable()">
                     <span class="checkmark"></span>
                 </label>
             </div>
